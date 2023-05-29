@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generador de Horario</title>
+  <script>
+    function generarHorario() {
+      var hobbies = [];
+      var actividadesFisicas = [];
+      var deporteFavorito = "";
+      var tiposCharla = [];
+
+      for (var i = 1; i <= 5; i++) {
+        hobbies.push(prompt("Ingresa tu hobby " + i));
+      }
+
+      for (var i = 1; i <= 2; i++) {
+        actividadesFisicas.push(prompt("Ingresa tu actividad física ligera " + i));
+      }
+
+      deporteFavorito = prompt("Ingresa tu deporte favorito");
+
+      for (var i = 1; i <= 2; i++) {
+        tiposCharla.push(prompt("Ingresa un tipo de charla " + i));
+      }
+
+      var diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+
+      var horario = "";
+
+      for (var i = 0; i < diasSemana.length; i++) {
+        horario += "<h3>" + diasSemana[i] + "</h3>";
+
+        var actividades = actividadesFisicas.concat(hobbies, [deporteFavorito], tiposCharla);
+        actividades.sort(function() {
+          return 0.5 - Math.random();
+        });
+
+        var horaInicio = 8;
+        var horaFin = 22;
+        var duracionActividad = (horaFin - horaInicio) / actividades.length;
+
+        for (var j = 0; j < actividades.length; j++) {
+          var hora = horaInicio + j * duracionActividad;
+          var horaFormateada = ("0" + Math.floor(hora)).slice(-2) + ":00";
+
+          horario += "<p>" + horaFormateada + " - " + actividades[j] + "</p>";
+        }
+      }
+
+      document.getElementById("horario").innerHTML = horario;
+    }
+  </script>
+</head>
+<body>
+  <h1>Generador de Horario</h1>
+  <button onclick="generarHorario()">Generar Horario</button>
+  <div id="horario"></div>
+</body>
+</html>
